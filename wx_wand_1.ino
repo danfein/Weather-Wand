@@ -212,7 +212,7 @@ void tempColor()
           } else if (diff < 1.5) {
               Serial.println("-----0++X++");
           } else if (diff < 2.0) {
-              Serial.println("X----0+++X+");
+              Serial.println("-----0+++X+");
           } else {
               setColor(255, 0, 255); //out of scope color
               Serial.println("X----0++++X");
