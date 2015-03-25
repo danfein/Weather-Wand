@@ -34,7 +34,7 @@ int grnVal = 0;
 int bluVal = 0;
 
 //delay var
-int del = 100; 
+int del = 80; 
 
 //statistics
 int max_samples = 50;
@@ -173,19 +173,19 @@ void tempColor()
         } else if (diff < -1.0) {
             setColor(150, 206, 150);
         } else if (diff < -0.5) {
-            setColor(0, 200, 50);
-        } else if (diff < 0.0) {
+            setColor(0, 230, 50);
+        } else if (diff < 0.0) {      // 0 = Avg
             setColor(0, 255, 1);
         } else if (diff < 0.5) {
-            setColor(150, 255, 0);
+            setColor(50, 230, 0);
         } else if (diff< 1.0) {
             setColor(200, 200, 0);
         } else if (diff < 1.5) {
             setColor(255, 100, 0);
         } else if (diff < 2.0) {
-            setColor(255, 10, 0);
+            setColor(255, 50, 0);
         } else {
-            setColor(100, 100, 100); //out of scope color
+            setColor(255, 0, 0); //max out color
         }
        
        if (DEBUG)   // Standard deviation visualizer
