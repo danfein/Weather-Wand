@@ -34,7 +34,7 @@ int grnVal = 0;
 int bluVal = 0;
 
 //delay var
-int del = 500; 
+int del = 100; 
 
 //statistics
 int max_samples = 50;
@@ -52,7 +52,7 @@ void setup()
     pinMode(redPin, OUTPUT);
     pinMode(greenPin, OUTPUT);
     pinMode(bluePin, OUTPUT);
-    
+        
     if (DEBUG) {         // If we want to see values for debugging...
     Serial.begin(9600);  // ...set up the serial ouput 
     Serial.println("Starting");
@@ -87,8 +87,8 @@ void getTemp()
      //getting the voltage reading from the temperature sensor
      int reading = analogRead(sensorPin);  
      
-     // converting that reading to voltage, for 3.3v arduino use 3.3
-     float voltage = reading * 5.0;
+     // converting that reading to voltage, for 3.3v arduino use 3.3, for 5v use 5
+     float voltage = reading * 3.3;
      voltage /= 1024.0; 
     
      // now kick out the temperature
@@ -165,15 +165,15 @@ void tempColor()
     float diff = (tempF_recent - avg_temperature) / stddev_temperature;
        
         if(diff < -2.5) {
-            setColor(0, 0, 255);
+            setColor(255, 0, 255);
         } else if (diff < -2.0) {
             setColor(0, 100, 255);
         } else if (diff < -1.5) {
-            setColor(0, 157, 255);
+            setColor(0, 157, 200);
         } else if (diff < -1.0) {
             setColor(150, 206, 150);
         } else if (diff < -0.5) {
-            setColor(0, 254, 0);
+            setColor(0, 200, 50);
         } else if (diff < 0.0) {
             setColor(0, 255, 1);
         } else if (diff < 0.5) {
@@ -181,11 +181,11 @@ void tempColor()
         } else if (diff< 1.0) {
             setColor(200, 200, 0);
         } else if (diff < 1.5) {
-            setColor(255, 150, 0);
-        } else if (diff < 2.0) {
             setColor(255, 100, 0);
+        } else if (diff < 2.0) {
+            setColor(255, 10, 0);
         } else {
-            setColor(255, 0, 255); //out of scope color
+            setColor(100, 100, 100); //out of scope color
         }
        
        if (DEBUG)   // Standard deviation visualizer
@@ -214,7 +214,6 @@ void tempColor()
           } else if (diff < 2.0) {
               Serial.println("-----0+++X+");
           } else {
-              setColor(255, 0, 255); //out of scope color
               Serial.println("X----0++++X");
           }
         }
