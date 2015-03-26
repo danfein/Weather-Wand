@@ -2,7 +2,7 @@
 
 The Weather Wand! 
 
-A small wand that light a LED (or set of LEDs) in response to temperature .
+A small wand that lights a LED (or set of LEDs) in response to temperature .
 
 Hot and cold are determined by the standard deviation from the average of the 50 most recent temperature samples.
 
