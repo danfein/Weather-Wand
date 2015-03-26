@@ -6,7 +6,7 @@ A small wand that lights Neo Pixels (addressable RGB LEDs) at the tip in respons
 
 Hot and cold are determined by the standard deviation from the average of the 50 most recent temperature samples.
 
-Hardware: An Arduino pro mini with a TMP36 temp sensor and an common cathode RGB LED.
+Hardware: An Arduino pro mini with a TMP36 temp sensor and addressable RGB LEDs.
 
 By: Dan Fein with great super math help from John Celenza.
 
