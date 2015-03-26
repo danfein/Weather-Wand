@@ -37,7 +37,7 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(12, PIN, NEO_GRB + NEO_KHZ800);
 // and minimize distance between Arduino and first pixel.  Avoid connecting
 // on a live circuit...if you must, connect GND first.
 
-//Temp sensor stuff
+//Temp sensor setup
 int sensorPin = 0; //TMP36
 float tempF;
 float tempC;
@@ -86,7 +86,7 @@ void loop()
     tempColor();
 
     delay(del);
-  }
+  } 
   
 // ---------------- Function Fun --------------------
   
@@ -114,24 +114,25 @@ void getTemp()
       Serial.print(tempC); Serial.println(" degrees C");
       Serial.print(tempF); Serial.println(" degrees F");
       Serial.print(tempF_recent); Serial.println(" degrees F (recent)");
-
       Serial.println("--------------");
       }
       
-    }
+    }//end
 
 void computeStdDev() {
   int i;
   avg_temperature = 0;
+
   for (i = 0; i < n_temperature_samples; i++){
     avg_temperature = avg_temperature + temperature_samples[i];
-  }
+    }
+  
   avg_temperature = avg_temperature / n_temperature_samples;
   
-  stddev_temperature = 0;
+  stddev_temperature = 0;  
   for (i = 0; i < n_temperature_samples; i++){
     stddev_temperature = stddev_temperature + (temperature_samples[i] - avg_temperature) * (temperature_samples[i] - avg_temperature);
-  }
+    }
   
   stddev_temperature = stddev_temperature / n_temperature_samples;
   stddev_temperature = sqrt(stddev_temperature);
@@ -139,19 +140,19 @@ void computeStdDev() {
   int start_i = i_temperature_samples - 5;
   if (start_i < 0) {
     start_i = 0;
-  }
+    }
   
   if (i_temperature_samples - start_i > 0){
   
     tempF_recent = 0;
     for (i = start_i; i < i_temperature_samples; i++) {
       tempF_recent = tempF_recent + temperature_samples[i];
-    }
+      }
     tempF_recent /= (i_temperature_samples - start_i);
  
   } else {
     tempF_recent = tempF;
-  }
+    }
   
     if (DEBUG)   // If we want to print it all to console...
     {          
@@ -166,7 +167,7 @@ void computeStdDev() {
      Serial.print("stddev_temperature: ");
      Serial.println(stddev_temperature);
     }  
-}
+}//end
 
 //Set the RGB color based on standard deviation distance from average temp 
 void tempColor()
@@ -174,27 +175,27 @@ void tempColor()
     float diff = (tempF_recent - avg_temperature) / stddev_temperature;
        
         if(diff < -2.5) {
-           colorWipe(strip.Color(255, 0, 255), 25);
+           setColor(strip.Color(255, 0, 255));
         } else if (diff < -2.0) {
-           colorWipe(strip.Color(0, 100, 255), 25);
+           setColor(strip.Color(0, 100, 255));
         } else if (diff < -1.5) {
-            colorWipe(strip.Color(0, 157, 200), 25);
+            setColor(strip.Color(0, 157, 200));
         } else if (diff < -1.0) {
-            colorWipe(strip.Color(150, 206, 150), 25);
+            setColor(strip.Color(150, 206, 150));
         } else if (diff < -0.5) {
-            colorWipe(strip.Color(0, 230, 50), 25);
-        } else if (diff < 0.0) {      // 0 = Avg
-            colorWipe(strip.Color(0, 255, 1), 25);
+            setColor(strip.Color(0, 230, 50));
+        } else if (diff < 0.0) {          // 0 = Avg
+            setColor(strip.Color(0, 255, 1));
         } else if (diff < 0.5) {
-            colorWipe(strip.Color(50, 230, 0), 25);
+            setColor(strip.Color(50, 230, 0));
         } else if (diff< 1.0) {
-            colorWipe(strip.Color(200, 200, 0), 25);
+            setColor(strip.Color(200, 200, 0));
         } else if (diff < 1.5) {
-            colorWipe(strip.Color(255, 100, 0), 25);
+            setColor(strip.Color(255, 100, 0));
         } else if (diff < 2.0) {
-            colorWipe(strip.Color(255, 50, 0), 25);
+            setColor(strip.Color(255, 50, 0));
         } else {
-            colorWipe(strip.Color(255, 0, 0), 25); //max out color
+            setColor(strip.Color(255, 0, 0)); //max out color
         }
        
        if (DEBUG)   // Standard deviation visualizer
@@ -226,14 +227,13 @@ void tempColor()
               Serial.println("X----0++++X");
           }
         }
-   }   
+   } //end   
  
 
-//Send the RGB value to the color pins    
-void colorWipe(uint32_t c, uint8_t wait) {
+//Send the RGB value to the pixels    
+void setColor(uint32_t c) {
   for(uint16_t i=0; i<strip.numPixels(); i++) {
       strip.setPixelColor(i, c);
       strip.show();
-      delay(wait);
-  }
-}
+      }
+  } //end
