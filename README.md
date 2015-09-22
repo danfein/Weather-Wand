@@ -11,3 +11,5 @@ Hardware: An Arduino pro mini with a TMP36 temp sensor and RGB LED(s).
 wx_wand_1 is setup to control a single RGB led
 
 wx_wand_neopixel is setup to control a number of addressable RGB LEDs using the adafruit library
+
+Details at: https://www.hackster.io/Dan/weather-wand
